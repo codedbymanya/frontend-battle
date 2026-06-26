@@ -1,0 +1,191 @@
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer-root {
+  background: var(--color-surface-0);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── TESTIMONIALS ─────────────────────────── */
+.footer-testimonials {
+  padding: var(--sp-10) 0 var(--sp-9);
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-5);
+  margin-top: var(--sp-7);
+}
+
+.testimonial-card {
+  padding: var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  position: relative;
+}
+
+.testimonial-card::before {
+  content: '"';
+  position: absolute;
+  top: var(--sp-4);
+  left: var(--sp-6);
+  font-family: var(--font-mono);
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--color-deep-teal);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.testimonial-quote {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  line-height: 1.75;
+  font-style: italic;
+  padding-top: var(--sp-6);
+}
+
+.testimonial-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.testimonial-author {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.testimonial-company {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* ── TRUST LOGOS ──────────────────────────── */
+.footer-trust {
+  padding: var(--sp-7) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.trust-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: var(--sp-5);
+}
+
+.trust-logos {
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.trust-pill {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-md);
+  padding: var(--sp-2) var(--sp-5);
+  transition: border-color var(--t-fast), color var(--t-fast);
+}
+
+.trust-pill:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text-primary);
+}
+
+/* ── BRAND BAR ────────────────────────────── */
+.footer-brand-bar {
+  padding: var(--sp-7) 0;
+}
+
+.footer-brand-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+}
+
+.footer-brand-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.footer-logo {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-warning), var(--color-highlight));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-tagline {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.footer-nav {
+  display: flex;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+}
+
+.footer-nav-link {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  transition: color var(--t-fast);
+}
+
+.footer-nav-link:hover {
+  color: var(--color-text-primary);
+}
+
+.footer-industries {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: right;
+}
+
+.footer-industries-label {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.65rem;
+}
+
+/* ── RESPONSIVE ───────────────────────────── */
+@media (max-width: 768px) {
+  .testimonial-grid { grid-template-columns: 1fr; }
+
+  .footer-brand-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-6);
+  }
+
+  .footer-industries { text-align: left; }
+}

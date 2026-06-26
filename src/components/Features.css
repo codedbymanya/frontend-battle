@@ -1,0 +1,236 @@
+/* ============================================================
+   FEATURES — Bento (desktop) / Accordion (mobile)
+   ============================================================ */
+.features-section {
+  padding: var(--sp-10) 0;
+  background: var(--color-surface-0);
+}
+
+.features-header {
+  margin-bottom: var(--sp-9);
+}
+
+/* ── BENTO GRID ───────────────────────────── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-4);
+}
+
+.bento-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-7) var(--sp-5);
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-lg);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--t-mid),
+    background var(--t-mid),
+    box-shadow var(--t-mid),
+    transform var(--t-fast);
+  min-height: 280px;
+}
+
+.bento-card:hover {
+  border-color: var(--color-border-hover);
+  transform: translateY(-3px);
+}
+
+.bento-active {
+  background: var(--color-surface-2);
+  border-color: var(--color-border-hover) !important;
+  box-shadow: var(--glow-teal);
+}
+
+.bento-top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.bento-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.bento-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.bento-title {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.bento-body {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  flex: 1;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height var(--t-slow), opacity var(--t-mid);
+}
+
+.bento-body-visible {
+  max-height: 200px;
+  opacity: 1;
+}
+
+.bento-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto;
+}
+
+.bento-stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.bento-stat-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Glow blob behind active card */
+.bento-glow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  opacity: 0.07;
+  filter: blur(40px);
+  pointer-events: none;
+  animation: glow-in var(--t-mid) ease forwards;
+}
+
+@keyframes glow-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 0.07; transform: scale(1); }
+}
+
+/* ── ACCORDION ────────────────────────────── */
+.features-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.acc-item {
+  overflow: hidden;
+  border-radius: var(--r-md) !important;
+  transition: border-color var(--t-mid);
+}
+
+.acc-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-5);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.acc-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.acc-label {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.acc-chevron {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  transition: transform var(--t-mid);
+  flex-shrink: 0;
+}
+
+.acc-body {
+  padding: 0 var(--sp-5) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  animation: acc-reveal var(--t-mid) ease forwards;
+}
+
+@keyframes acc-reveal {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.acc-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.acc-text {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+.acc-stat {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+
+.acc-stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.acc-stat-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── RESPONSIVE ───────────────────────────── */
+@media (max-width: 1100px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,333 @@
+/* ============================================================
+   PIPELINE SIMULATOR
+   ============================================================ */
+.pipeline-section {
+  padding: var(--sp-10) 0;
+  background: var(--color-surface-0);
+}
+
+.pipeline-header {
+  margin-bottom: var(--sp-9);
+}
+
+/* ── BOARD ────────────────────────────────── */
+.pipeline-board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: var(--sp-8) var(--sp-5);
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-xl);
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-surface-3) transparent;
+}
+
+/* Stage wrapper */
+.pipeline-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-shrink: 0;
+}
+
+.stage-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+/* ── ARROWS ───────────────────────────────── */
+.pipeline-arrow {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0 var(--sp-3);
+  margin-top: 20px; /* align to stage-label offset */
+}
+
+.arrow-line {
+  width: 32px;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.arrow-head {
+  font-size: 0.6rem;
+  color: var(--color-text-muted);
+  margin-left: -4px;
+}
+
+/* ── CHAOS STAGE ──────────────────────────── */
+.chaos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.data-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 180px;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-md);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s ease;
+}
+
+.data-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Scatter animation when running */
+.running .chaos .data-card:nth-child(1) {
+  transform: translate(-12px, -8px) rotate(-6deg);
+  opacity: 0.6;
+}
+.running .chaos .data-card:nth-child(2) {
+  transform: translate(10px, 4px) rotate(4deg);
+  opacity: 0.6;
+}
+.running .chaos .data-card:nth-child(3) {
+  transform: translate(-6px, 10px) rotate(-3deg);
+  opacity: 0.6;
+}
+
+/* ── SCANNER STAGE ────────────────────────── */
+.scanner {
+  position: relative;
+  width: 200px;
+  height: 120px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--color-surface-0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Corner brackets */
+.scanner-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--color-deep-teal);
+  border-style: solid;
+  border-width: 0;
+  transition: border-color var(--t-mid);
+}
+.scanner-corner.tl { top: 8px; left: 8px; border-top-width: 2px; border-left-width: 2px; }
+.scanner-corner.tr { top: 8px; right: 8px; border-top-width: 2px; border-right-width: 2px; }
+.scanner-corner.bl { bottom: 8px; left: 8px; border-bottom-width: 2px; border-left-width: 2px; }
+.scanner-corner.br { bottom: 8px; right: 8px; border-bottom-width: 2px; border-right-width: 2px; }
+
+.running .scanner-corner {
+  border-color: var(--color-warning);
+}
+
+.scanner-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  z-index: 1;
+}
+
+/* Laser beam */
+.laser {
+  width: 3px;
+  height: 100%;
+  position: absolute;
+  left: -10px;
+  top: 0;
+  background: linear-gradient(to bottom, transparent, var(--color-warning), transparent);
+  box-shadow: 0 0 12px var(--color-warning), 0 0 30px rgba(255, 200, 1, 0.4);
+  opacity: 0;
+}
+
+.running .laser {
+  opacity: 1;
+  animation: scan 1.8s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes scan {
+  from { left: -4px; opacity: 1; }
+  to   { left: 100%; opacity: 0.5; }
+}
+
+/* ── REDACTION STAGE ──────────────────────── */
+.redacted {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-md);
+}
+
+.redact-bar {
+  height: 16px;
+  background: var(--color-deep-teal);
+  border-radius: 3px;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.redact-bar:nth-child(1) { width: 140px; }
+.redact-bar:nth-child(2) { width: 100px; }
+.redact-bar:nth-child(3) { width: 120px; }
+
+.running .redact-bar {
+  animation: reveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.running .redact-bar:nth-child(1) { animation-delay: 2.4s; }
+.running .redact-bar:nth-child(2) { animation-delay: 2.7s; }
+.running .redact-bar:nth-child(3) { animation-delay: 3.0s; }
+
+@keyframes reveal {
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+/* ── BUCKETS STAGE ────────────────────────── */
+.buckets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.bucket {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--r-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border: 1px solid;
+  opacity: 0.35;
+  transition: opacity var(--t-slow), transform var(--t-mid), box-shadow var(--t-mid);
+}
+
+.bucket.archive { color: #7dd3fc; border-color: rgba(125, 211, 252, 0.25); background: rgba(125, 211, 252, 0.05); }
+.bucket.delete  { color: #f87171; border-color: rgba(248, 113, 113, 0.25); background: rgba(248, 113, 113, 0.05); }
+.bucket.retain  { color: #22d97a; border-color: rgba(34, 217, 122, 0.25); background: rgba(34, 217, 122, 0.05); }
+
+.running .bucket {
+  opacity: 1;
+  transform: translateX(4px);
+  animation: bucket-on 0.5s ease forwards;
+}
+.running .bucket.archive { animation-delay: 3.2s; opacity: 0.35; }
+.running .bucket.delete  { animation-delay: 3.5s; opacity: 0.35; }
+.running .bucket.retain  { animation-delay: 3.8s; opacity: 0.35; }
+
+@keyframes bucket-on {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.running .bucket.archive { box-shadow: 0 0 12px rgba(125, 211, 252, 0.2); }
+.running .bucket.delete  { box-shadow: 0 0 12px rgba(248, 113, 113, 0.2); }
+.running .bucket.retain  { box-shadow: 0 0 12px rgba(34, 217, 122, 0.2); }
+
+/* ── CTA ──────────────────────────────────── */
+.pipeline-cta-row {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--sp-8);
+}
+
+.audit-btn {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  padding: 14px 36px;
+}
+
+/* ── RESULTS METRICS ──────────────────────── */
+.metric-grid {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+  margin-top: var(--sp-7);
+  animation: metric-fadein 0.5s ease forwards;
+}
+
+@keyframes metric-fadein {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-6) var(--sp-8);
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-lg);
+  min-width: 160px;
+}
+
+.metric-value {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.metric-label {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+/* ── RESPONSIVE ───────────────────────────── */
+@media (max-width: 768px) {
+  .pipeline-board {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--sp-6);
+    gap: var(--sp-4);
+  }
+
+  .pipeline-arrow {
+    transform: rotate(90deg);
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .pipeline-stage {
+    width: 100%;
+  }
+
+  .chaos { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  .data-card { width: auto; }
+}
